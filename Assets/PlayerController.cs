@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     public float moveSpeed;
     public float rotateSpeed;
     NavMeshAgent playerNav;
+    Animator playerAnimator;
 
     private void Start()
     {
         playerNav = player.GetComponent<NavMeshAgent>();
         playerNav.speed = moveSpeed;
         playerNav.angularSpeed = rotateSpeed;
+        playerAnimator = player.GetComponent<Animator>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -40,5 +42,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
             if (hit.transform.gameObject.tag == "Land")
                 playerNav.SetDestination(hit.point);
         }
+    }
+
+    private void Update()
+    {
+        // 움직일때 걷는 애니메이션
+        playerAnimator.SetBool("Walk", playerNav.velocity != Vector3.zero);
     }
 }
