@@ -8,7 +8,8 @@ public class Manager_SE : MonoBehaviour
 
     [Header("Clip")]
     public AudioClip step;  // 발자국
-    public AudioClip btnA; 
+    public AudioClip btnA;
+    public AudioClip drag;
 
 
 }
