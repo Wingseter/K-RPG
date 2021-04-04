@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
             if (hit.transform.gameObject.tag == "Land")
                 playerNav.SetDestination(hit.point);
+            if (hit.transform.gameObject.tag == "Player")
+            {
+                Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnA);
+                Manager.instance.manager_Inven.charInfoFrame.SetActive(true);
+            }
         }
     }
 
