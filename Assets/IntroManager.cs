@@ -11,6 +11,7 @@ public class IntroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartPanel.SetActive(false);
         StartCoroutine(DelayTime(2));
     }
 
@@ -25,5 +26,13 @@ public class IntroManager : MonoBehaviour
     public void GoGameScene()
     {
         SceneManager.LoadScene(1);
+    }
+
+    private void Update()
+    {
+        if(Input.anyKey)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
