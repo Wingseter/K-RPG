@@ -17,5 +17,7 @@ public class Items_Info : MonoBehaviour
     public int defBonus;
     public float criBonus;
 
-
+    public bool equipped;
+    public Mesh mesh;
+    public int equipNum;
 }

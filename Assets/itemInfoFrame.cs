@@ -17,6 +17,10 @@ public class itemInfoFrame : MonoBehaviour
     public TextMeshProUGUI defBonus;
     public TextMeshProUGUI criBonus;
 
+    [Header("Button")]
+    public GameObject equipBtn;
+    public GameObject releaseBtn;
+
     private void OnEnable()
     {
         statBonus.SetActive(false);
@@ -28,9 +32,20 @@ public class itemInfoFrame : MonoBehaviour
         {
             hpBonus.text = string.Format("HP+{0}",item.hpBonus);
             atkBonus.text = string.Format("Atk+{0}", item.atkBonus);
-            defBonus.text = string.Format("Def+{0}", item.defBonus);
+            defBonus.text = string.Format("Def +{0}", item.defBonus);
             criBonus.text = string.Format("Cri+{0}", item.criBonus);
             statBonus.SetActive(true);
+
+            if (!item.equipped)
+                equipBtn.SetActive(true);
+            if (item.equipped)
+                releaseBtn.SetActive(true);
         }
+    }
+
+    private void OnDisable()
+    {
+        equipBtn.SetActive(false);
+        releaseBtn.SetActive(false);
     }
 }
