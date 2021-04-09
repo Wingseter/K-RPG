@@ -33,7 +33,7 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
             StopCoroutine("ReleaseTime");
             transform.localScale = new Vector3(1, 1, 1);
 
-            if(releaseTime >= 0.1f)
+            if(releaseTime >= 0.2f)
             {
                 transform.SetParent(Manager.instance.manager_Inven.curParent);
                 transform.localPosition = Vector3.zero;
@@ -41,10 +41,16 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
                 return;
             }
 
-            if(releaseTime < 0.1f)
+            if(releaseTime < 0.2f)
             {
-                // 클릭 이벤트
+                Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnB);
+                // 아이템 설명
+                Manager.instance.manager_Inven.itemInfoFrame.SetActive(false);
+                Manager.instance.manager_Inven.itemInfoFrame.GetComponent<itemInfoFrame>().item= GetComponent<Items_Info>();
+                Manager.instance.manager_Inven.itemInfoFrame.SetActive(true);
 
+                Manager.instance.manager_Inven.rect.position = transform.position;
+                Manager.instance.manager_Inven.rect.gameObject.SetActive(true);
             }
         }
     }
@@ -63,18 +69,22 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
         {
             releaseTime += Time.deltaTime;
 
-            if(releaseTime >= 0.1f)
+            if(releaseTime >= 0.2f)
             {
                 transform.localScale = new Vector3(1.3f, 1.3f, 1);
 
                 if(!dragging)
                 {
+                    Manager.instance.manager_Inven.itemInfoFrame.SetActive(false);
+
                     Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.drag);
 
                     dragging = true;
                     Manager.instance.manager_Inven.curParent = transform.parent;
                     transform.SetParent(Manager.instance.manager_Inven.parentOnDrag);
                     img.raycastTarget = false;
+
+                    Manager.instance.manager_Inven.rect.gameObject.SetActive(false);
                 }
             }
             yield return null;
