@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Land
+  - Enemy
   layers:
   - Default
   - TransparentFX
