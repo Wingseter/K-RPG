@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     [Header("Camera")]
     public Camera cam;
     public GameObject moveEffect;
+    public Vector3 offset_Cam;
     RaycastHit hit;
 
     [Header("Player")]
@@ -55,5 +56,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     {
         // 움직일때 걷는 애니메이션
         playerAnimator.SetBool("Walk", playerNav.velocity != Vector3.zero);
+
+        cam.transform.position = player.position + offset_Cam;
     }
 }
