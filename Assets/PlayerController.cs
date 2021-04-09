@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IPointerDownHandler
 {
@@ -27,6 +28,14 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     public TextMeshProUGUI name_Target;
     public GameObject hpBar_Target;
 
+
+    [Header("Casting")]
+    public bool onCasting;
+    public Image castingBar;
+    float castingTime;
+    string skillName;
+    Transform atkTarget;
+
     private void Start()
     {
         playerNav = player.GetComponent<NavMeshAgent>();
@@ -49,7 +58,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
             moveEffect.SetActive(true);
 
             if (hit.transform.gameObject.tag == "Land")
+            {
+                if(!onCasting)
+
                 playerNav.SetDestination(hit.point);
+            }
             if (hit.transform.gameObject.tag == "Player")
             {
                 Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnA);
@@ -60,6 +73,46 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
             if (hit.transform.gameObject.tag == "Enemy")
                 Targeting();
+        }
+    }
+
+    public void Casting(float time, string name)
+    {
+        castingTime = time;
+        skillName = name;
+        atkTarget = target;
+        StartCoroutine("OnCasting");
+    }
+
+    IEnumerator OnCasting()
+    {
+        Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.casting);
+
+        onCasting = true;
+        float time = 0;
+        player.LookAt(atkTarget);
+        playerAni.Play("Player_Casting");
+        playerNav.enabled = false;
+        castingBar.transform.parent.gameObject.SetActive(true);
+        castingBar.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = skillName;
+
+        while(true)
+        {
+            time += Time.deltaTime;
+            castingBar.fillAmount = time / castingTime;
+
+            if(time>=castingTime)
+            {
+                Manager.instance.manager_SE.seAudios.Stop();
+
+                StopCoroutine("OnCasting");
+                castingBar.transform.parent.gameObject.SetActive(false);
+                playerAni.Play("Player_Shot");
+                playerNav.enabled = true;
+                onCasting = false;
+            }
+
+            yield return null;
         }
     }
 
