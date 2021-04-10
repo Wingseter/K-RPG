@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     public GameObject target_Tool;
     public TextMeshProUGUI name_Target;
     public GameObject hpBar_Target;
-
+    bool clickNpc;
 
     [Header("Casting")]
     public bool onCasting;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         Ray ray = cam.ScreenPointToRay(eventData.position);
         Physics.Raycast(ray, out hit);
 
-        if(hit.transform != null)
+        if (hit.transform != null)
         {
             // 클릭 이펙트를 꺼주고
             moveEffect.SetActive(false);
@@ -60,9 +60,8 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
             if (hit.transform.gameObject.tag == "Land")
             {
-                if(!onCasting)
-
-                playerNav.SetDestination(hit.point);
+                if (!onCasting)
+                    playerNav.SetDestination(hit.point);
             }
             if (hit.transform.gameObject.tag == "Player")
             {
@@ -74,6 +73,15 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
             if (hit.transform.gameObject.tag == "Enemy")
                 Targeting();
+
+            if (hit.transform.gameObject.tag == "NPC")
+            {
+                Targeting();
+                if (!onCasting)
+                    playerNav.SetDestination(hit.point);
+
+                clickNpc = true;
+            }
         }
     }
 
@@ -131,11 +139,12 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
     }
 
+    float targetDis;
     void OnTarget()
     {
         if (target != null)
         {
-            float targetDis = (target.position - player.position).magnitude;
+            targetDis = (target.position - player.position).magnitude;
 
             if (targetDis > range)
             {
@@ -161,6 +170,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
             hpBar_Target.transform.GetChild(0).GetComponent<Image>().fillAmount = enemyState.curHp / enemyState.hp ;
         }
 
+        if (target != null && target.gameObject.tag == "NPC" && targetDis < 2.5f && clickNpc)
+        {
+            clickNpc = false;
+            target.GetComponent<NPC_Dialog>().Dialog();
+        }
         cam.transform.position = player.position + offset_Cam;
     }
 }

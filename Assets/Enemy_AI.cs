@@ -28,7 +28,7 @@ public class Enemy_AI : MonoBehaviour
         originPosition = transform.position;
         nav = GetComponent<NavMeshAgent>();
         enemyAni = GetComponent<Animator>();
-        StartCoroutine("EnemyAI");
+        ResetAI();
     }
 
     void ResetAI()
