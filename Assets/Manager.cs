@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour
     public Manager_SE manager_SE;
     public Manager_Inven manager_Inven;
     public PlayerController playerController;
+    public Manager_Obj manager_Obj;
 
     private void Awake()
     {

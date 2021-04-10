@@ -6,7 +6,7 @@ public class Skill_Arrow : MonoBehaviour
 {
     Transform target;
     public float speed;
-    public GameObject hitEffect;
+    GameObject hitEffect;
 
     private void OnEnable()
     {
@@ -27,6 +27,8 @@ public class Skill_Arrow : MonoBehaviour
     }
     void OnHitEffect(Vector3 hitPoint)
     {
+        hitEffect = Manager.instance.manager_Obj.GetObj(Manager.instance.manager_Obj.list_hitEffect);
+
         hitEffect.transform.position = hitPoint + new Vector3(0, 1, 0);
         hitEffect.SetActive(true);
     }

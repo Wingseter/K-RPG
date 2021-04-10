@@ -12,7 +12,7 @@ public class SkillBtn : MonoBehaviour
     public Image cdImg;
     bool cool;
     public float castingTime;
-    public GameObject skillObj;
+    GameObject skillObj;
 
     public void OnClickBtn()
     {
@@ -20,6 +20,16 @@ public class SkillBtn : MonoBehaviour
         {
             cool = true;
             StartCoroutine("CoolDown");
+
+            switch(skillName)
+            {
+                case "SoulArrow":
+                    skillObj = Manager.instance.manager_Obj.GetObj(Manager.instance.manager_Obj.list_Skill_Arrow);
+                    break;
+                case "SoulZone":
+                    // TODO: 추가
+                    break;
+            }
             Manager.instance.playerController.Casting(castingTime, skillName, skillObj);
         }
     }
