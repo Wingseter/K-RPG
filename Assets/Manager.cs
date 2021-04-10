@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     public Manager_Inven manager_Inven;
     public PlayerController playerController;
     public Manager_Obj manager_Obj;
+    public Manager_Monster manager_Mon;
 
     private void Awake()
     {
