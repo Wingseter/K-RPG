@@ -12,6 +12,7 @@ public class SkillBtn : MonoBehaviour
     public Image cdImg;
     bool cool;
     public float castingTime;
+    public GameObject skillObj;
 
     public void OnClickBtn()
     {
@@ -19,7 +20,7 @@ public class SkillBtn : MonoBehaviour
         {
             cool = true;
             StartCoroutine("CoolDown");
-            Manager.instance.playerController.Casting(castingTime, skillName);
+            Manager.instance.playerController.Casting(castingTime, skillName, skillObj);
         }
     }
 

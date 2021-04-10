@@ -12,5 +12,7 @@ public class Manager_SE : MonoBehaviour
     public AudioClip drag;
     public AudioClip btnB;
     public AudioClip casting;
+    public AudioClip flying_MagicArrow;
+    public AudioClip hit_MagicArrow;
 
 }
