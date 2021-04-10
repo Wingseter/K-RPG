@@ -25,6 +25,16 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
         if (inBag)
             StartCoroutine("ReleaseTime");
 
+        if(inStore)
+        {
+            Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnB);
+            // 아이템 설명
+            Manager.instance.manager_Inven.itemInfoFrame.SetActive(false);
+            Manager.instance.manager_Inven.itemInfoFrame.GetComponent<itemInfoFrame>().item = GetComponent<Items_Info>();
+            Manager.instance.manager_Inven.itemInfoFrame.SetActive(true);
+
+        }
+
     }
 
     public void OnPointerUp(PointerEventData eventData)

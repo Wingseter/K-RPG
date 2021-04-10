@@ -187,6 +187,8 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         {
             clickNpc = false;
             Manager.instance.manager_Inven.storeFrame.GetComponent<ItemStoreFrame>().OpenStore();
+
+            Manager.instance.manager_Inven.OpenBag();
         }
         cam.transform.position = player.position + offset_Cam;
     }

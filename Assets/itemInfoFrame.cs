@@ -20,6 +20,8 @@ public class itemInfoFrame : MonoBehaviour
     [Header("Button")]
     public GameObject equipBtn;
     public GameObject releaseBtn;
+    public GameObject buyBtn;
+    public GameObject sellBtn;
 
     private void OnEnable()
     {
@@ -36,10 +38,21 @@ public class itemInfoFrame : MonoBehaviour
             criBonus.text = string.Format("Cri+{0}", item.criBonus);
             statBonus.SetActive(true);
 
-            if (!item.equipped)
-                equipBtn.SetActive(true);
-            if (item.equipped)
-                releaseBtn.SetActive(true);
+            if (!Manager.instance.manager_Inven.storeFrame.activeSelf)
+            {
+                if (!item.equipped)
+                    equipBtn.SetActive(true);
+                if (item.equipped)
+                    releaseBtn.SetActive(true);
+            }
+            if (Manager.instance.manager_Inven.storeFrame.activeSelf)
+            {
+                if (item.GetComponent<items_action>().inStore)
+                    buyBtn.SetActive(true);
+                if (item.GetComponent<items_action>().inBag && !item.equipped)
+                    sellBtn.SetActive(true);
+            }
+
         }
     }
 
@@ -47,5 +60,7 @@ public class itemInfoFrame : MonoBehaviour
     {
         equipBtn.SetActive(false);
         releaseBtn.SetActive(false);
+        buyBtn.SetActive(false);
+        sellBtn.SetActive(false);
     }
 }
