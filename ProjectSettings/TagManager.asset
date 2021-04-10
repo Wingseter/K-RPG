@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - Land
   - Enemy
+  - Dead
   layers:
   - Default
   - TransparentFX

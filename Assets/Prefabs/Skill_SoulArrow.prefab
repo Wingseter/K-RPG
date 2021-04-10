@@ -19061,7 +19061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  hitEffect: {fileID: 0}
+  skillPower: 1.2
 --- !u!65 &983939478006245379
 BoxCollider:
   m_ObjectHideFlags: 0

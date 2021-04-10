@@ -12,9 +12,14 @@ public class Manager_Obj : MonoBehaviour
     public Transform pool_Effect;
     public List<GameObject> list_hitEffect = new List<GameObject>();
 
+    [Space(10)]
+    public Transform pool_text;
+    public List<GameObject> list_dmgText = new List<GameObject>();
+
     [Header("Prefab")]
     public GameObject prefab_skill_SoulArrow;
     public GameObject prefab_hitEffect;
+    public GameObject prefab_dmgText;
 
     GameObject AddObj(GameObject prefab, Transform pool, List<GameObject> list)
     {
@@ -40,6 +45,12 @@ public class Manager_Obj : MonoBehaviour
         if (list == list_hitEffect)
         {
             GameObject obj = AddObj(prefab_hitEffect, pool_Effect, list_hitEffect);
+            return obj;
+        }
+
+        if(list == list_dmgText)
+        {
+            GameObject obj = AddObj(prefab_dmgText, pool_text, list_dmgText);
             return obj;
         }
 

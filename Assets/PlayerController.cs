@@ -155,6 +155,12 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
         OnTarget();
 
+        if(target != null && target.gameObject.tag == "Enemy")
+        {
+            EnemyState enemyState = target.GetComponent<EnemyState>();
+            hpBar_Target.transform.GetChild(0).GetComponent<Image>().fillAmount = enemyState.curHp / enemyState.hp ;
+        }
+
         cam.transform.position = player.position + offset_Cam;
     }
 }
