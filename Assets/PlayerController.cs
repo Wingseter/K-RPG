@@ -82,6 +82,14 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
                 clickNpc = true;
             }
+            if (hit.transform.gameObject.tag == "Merchant")
+            {
+                Targeting();
+                if (!onCasting)
+                    playerNav.SetDestination(hit.point);
+
+                clickNpc = true;
+            }
         }
     }
 
@@ -174,6 +182,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         {
             clickNpc = false;
             target.GetComponent<NPC_Dialog>().Dialog();
+        }
+        if (target != null && target.gameObject.tag == "Merchant" && targetDis < 2.5f && clickNpc)
+        {
+            clickNpc = false;
+            Manager.instance.manager_Inven.storeFrame.GetComponent<ItemStoreFrame>().OpenStore();
         }
         cam.transform.position = player.position + offset_Cam;
     }

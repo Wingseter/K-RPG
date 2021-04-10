@@ -8,6 +8,7 @@ public class Items_Info : MonoBehaviour
     public string type;
     public string name_Item;
     public string info_Item;
+    public int price;
     public int resalsePrice;
     public int count;
 

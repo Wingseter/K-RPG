@@ -8,6 +8,8 @@ TagManager:
   - Land
   - Enemy
   - Dead
+  - NPC
+  - Merchant
   layers:
   - Default
   - TransparentFX

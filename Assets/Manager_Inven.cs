@@ -9,6 +9,7 @@ public class Manager_Inven : MonoBehaviour
     public GameObject charInfoFrame;
     public GameObject bagFrame;
     public GameObject itemInfoFrame;
+    public GameObject storeFrame;
 
     [Header("Bag")]
     public int gold;
