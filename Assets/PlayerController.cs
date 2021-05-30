@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     public GameObject hpBar_Target;
     bool clickNpc;
 
+    [Header("Boss")]
+    public GameObject target_Boss;
+    public TextMeshProUGUI name_Boss;
+    public GameObject hpBar_Boss;
+
     [Header("Casting")]
     public bool onCasting;
     public Image castingBar;
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     string skillName;
     public Transform atkTarget;
     GameObject skillObj;
+    float targetDis;
 
     private void Start()
     {
@@ -65,14 +71,19 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
             }
             if (hit.transform.gameObject.tag == "Player")
             {
-                Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnA);
-                Manager.instance.manager_Inven.charInfoFrame.SetActive(true);
-                Manager.instance.manager_Inven.OpenBag();
+                // Nothing
 
             }
 
             if (hit.transform.gameObject.tag == "Enemy")
+            {
                 Targeting();
+            }
+
+            if (hit.transform.gameObject.tag == "Boss")
+            {
+                BossTargeting();
+            }
 
             if (hit.transform.gameObject.tag == "NPC")
             {
@@ -83,6 +94,14 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
                 clickNpc = true;
             }
             if (hit.transform.gameObject.tag == "Merchant")
+            {
+                Targeting();
+                if (!onCasting)
+                    playerNav.SetDestination(hit.point);
+
+                clickNpc = true;
+            }
+            if (hit.transform.gameObject.tag == "Smith")
             {
                 Targeting();
                 if (!onCasting)
@@ -147,9 +166,18 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
     }
 
-    float targetDis;
+    void BossTargeting()
+    {
+        target = hit.transform;
+        name_Boss.text = target.GetComponent<Obj_Info>().obj_Name;
+        hpBar_Boss.SetActive(target.GetComponent<Obj_Info>().type == "Boss");
+        target_Boss.SetActive(true);
+
+    }
+
     void OnTarget()
     {
+        
         if (target != null)
         {
             targetDis = (target.position - player.position).magnitude;
@@ -178,6 +206,13 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
             hpBar_Target.transform.GetChild(0).GetComponent<Image>().fillAmount = enemyState.curHp / enemyState.hp ;
         }
 
+        if (target != null && target.gameObject.tag == "Boss")
+        {
+            EnemyState enemyState = target.GetComponent<EnemyState>();
+            hpBar_Boss.transform.GetComponent<Image>().fillAmount = enemyState.curHp / enemyState.hp;
+        }
+
+
         if (target != null && target.gameObject.tag == "NPC" && targetDis < 2.5f && clickNpc)
         {
             clickNpc = false;
@@ -190,6 +225,14 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
 
             Manager.instance.manager_Inven.OpenBag();
         }
+        if (target != null && target.gameObject.tag == "Smith" && targetDis < 2.5f && clickNpc)
+        {
+            clickNpc = false;
+            Manager.instance.manager_Inven.smithFrame.GetComponent<SmithFrame>().OpenSmith();
+            Manager.instance.manager_Inven.OpenBag();
+        }
+
+
         cam.transform.position = player.position + offset_Cam;
     }
 }

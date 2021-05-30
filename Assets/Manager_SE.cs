@@ -14,5 +14,7 @@ public class Manager_SE : MonoBehaviour
     public AudioClip casting;
     public AudioClip flying_MagicArrow;
     public AudioClip hit_MagicArrow;
+    public AudioClip LevelUp;
+    public AudioClip Gacha;
 
 }

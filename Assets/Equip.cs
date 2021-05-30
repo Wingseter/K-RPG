@@ -6,8 +6,8 @@ public class Equip : MonoBehaviour
 {
     [Header("Player")]
     public PlayerState player;
-    public Mesh[] originMesh;
-    public SkinnedMeshRenderer[] parts_Player;
+    public GameObject CharInfoFrame;
+    //public SkinnedMeshRenderer[] parts_Player;
 
     [Header("Character Info")]
     public Transform[] slot_Equip;
@@ -33,7 +33,7 @@ public class Equip : MonoBehaviour
         cur_Equip[item.equipNum] = item;
         item.equipped = true;
         item.transform.GetChild(0).gameObject.SetActive(true);
-        parts_Player[item.equipNum].sharedMesh = item.mesh;
+        //parts_Player[item.equipNum].sharedMesh = item.mesh;
 
         IncreaseStats(cur_Equip[item.equipNum]);
 
@@ -53,7 +53,6 @@ public class Equip : MonoBehaviour
         ReduceStats(cur_Equip[item.equipNum]);
 
         cur_Equip[item.equipNum] = null;
-        parts_Player[item.equipNum].sharedMesh = originMesh[item.equipNum];
 
         Manager.instance.manager_Inven.itemInfoFrame.SetActive(false);
         Manager.instance.manager_Inven.itemInfoFrame.SetActive(true);

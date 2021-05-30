@@ -10,6 +10,8 @@ TagManager:
   - Dead
   - NPC
   - Merchant
+  - Boss
+  - Smith
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
+    [Header("State")]
     public int lev;     // 래밸
 
     public float hp;    // 체력
@@ -16,8 +18,32 @@ public class PlayerState : MonoBehaviour
     public float exp_Max;   // 맥스 경험치
     public float exp_Cur;   // 현재 경험치
 
+    public float mana;
+    public float mana_Cur;
+
+    public float spantDia;
+    public float DiaLevel;
+
+    [Header("Frame")]
+    public GameObject LevelUpPopup;
+    public TextMeshProUGUI Level;
+
+    [Header("Item")]
+    public float exp_Multiply;    
+
+
     private void OnEnable()
     {
-        hp_Cur = hp; 
+        exp_Multiply = 1.0f;
+    }
+
+    public void LevelUp()
+    {
+        Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.LevelUp);
+        lev = lev + 1;
+        exp_Max = exp_Max + 100;
+        exp_Cur = 0;
+        Level.text = lev.ToString();
+        LevelUpPopup.SetActive(true);
     }
 }

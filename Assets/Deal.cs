@@ -5,19 +5,38 @@ using UnityEngine;
 
 public class Deal : MonoBehaviour
 {
-    public Transform[] slot_BagFrame;
     public TextMeshProUGUI notice;
     public TextMeshProUGUI gain;
 
-    Transform Slot()
+    public void DiaBuy()
     {
-        for(int i = 0; i < slot_BagFrame.Length; i++)
-        {
-            if (slot_BagFrame[i].childCount == 0)
-                return slot_BagFrame[i];
-        }
+        Manager_Inven inven = GetComponent<Manager_Inven>();
+        Items_Info item = inven.selectedItem.GetComponent<Items_Info>();
 
-        return null;
+        if (item.diaPrice <= inven.dia)
+        {
+            Transform emptySlot = Manager.instance.manager_Inven.Slot();
+
+            if (emptySlot != null)
+            {
+                inven.dia -= item.diaPrice;
+                GameObject obj = Instantiate(item.gameObject, emptySlot);
+                inven.goldAmount.text = inven.gold.ToString();
+
+                obj.GetComponent<items_action>().inCashStore = false;
+                obj.GetComponent<items_action>().inBag = true;
+
+                gain.text = string.Format("-{0}Dia", item.diaPrice);
+                gain.color = new Vector4(1, 0.5f, 0.5f, 1);
+                gain.gameObject.SetActive(true);
+                return;
+            }
+            notice.text = "Not enough space in bag";
+            notice.gameObject.SetActive(true);
+            return;
+        }
+        notice.text = "Not enough Dia";
+        notice.gameObject.SetActive(true);
     }
 
     public void Buy()
@@ -25,9 +44,9 @@ public class Deal : MonoBehaviour
         Manager_Inven inven = GetComponent<Manager_Inven>();
         Items_Info item = inven.selectedItem.GetComponent<Items_Info>();
 
-        if(item.price < inven.gold)
+        if(item.price <= inven.gold)
         {
-            Transform emptySlot = Slot();
+            Transform emptySlot = Manager.instance.manager_Inven.Slot();
 
             if(emptySlot != null)
             {

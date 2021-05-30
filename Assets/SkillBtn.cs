@@ -26,8 +26,8 @@ public class SkillBtn : MonoBehaviour
                 case "SoulArrow":
                     skillObj = Manager.instance.manager_Obj.GetObj(Manager.instance.manager_Obj.list_Skill_Arrow);
                     break;
-                case "SoulZone":
-                    // TODO: 추가
+                case "Nuke":
+                    skillObj = Manager.instance.manager_Obj.GetObj(Manager.instance.manager_Obj.list_Skill_Nuke);
                     break;
             }
             Manager.instance.playerController.Casting(castingTime, skillName, skillObj);

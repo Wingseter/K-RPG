@@ -12,7 +12,11 @@ public class Enemy_AI : MonoBehaviour
     public int trackingRange;
 
     public bool inCombat;
+    public bool isThisBoss;
     bool inAtk;
+
+    public float timeSpan;  //경과 시간을 갖는 변수
+    public float checkTime;  // 특정 시간을 갖는 변수
 
     public NavMeshAgent nav;
     Animator enemyAni;
@@ -23,6 +27,7 @@ public class Enemy_AI : MonoBehaviour
     Vector3 target;
     float targetDis;
 
+
     private void OnEnable()
     {
         originPosition = transform.position;
@@ -30,6 +35,7 @@ public class Enemy_AI : MonoBehaviour
         enemyAni = GetComponent<Animator>();
         ResetAI();
     }
+  
 
     void ResetAI()
     {
@@ -37,7 +43,10 @@ public class Enemy_AI : MonoBehaviour
         inCombat = false;
         onMove = false;
         inAtk = false;
-        gameObject.tag = "Enemy";
+        if (isThisBoss == true)
+            gameObject.tag = "Boss";
+        else
+            gameObject.tag = "Enemy";
         StartCoroutine("EnemyAI");
     }
 
@@ -71,18 +80,21 @@ public class Enemy_AI : MonoBehaviour
 
     void Move_NonCombat()
     {
-        if (targetDis <= 3)
+    
+        if (targetDis <= 3 || timeSpan > checkTime)  // 경과 시간이 특정 시간이 보다 커졋을 경우
+        {
             onMove = false;
+            timeSpan = 0;
+        }
 
-        if(!onMove)
+
+        if (!onMove)
         {
             onMove = true;
             nav.speed = speed_NonCombat;
 
-            target = new Vector3(transform.position.x + Random.Range(-1 * moveRange, moveRange), 0,
-                transform.position.z +
-                Random.Range(-1 * moveRange, moveRange));
-
+            target = new Vector3(transform.position.x + Random.Range(-1 * moveRange, moveRange), transform.position.y,
+                transform.position.z + Random.Range(-1 * moveRange, moveRange));
             nav.SetDestination(target);
         }
 
@@ -117,7 +129,9 @@ public class Enemy_AI : MonoBehaviour
             originDis = (originPosition - transform.position).magnitude;
             targetDis = (target - transform.position).magnitude;
 
-            if(!inCombat)
+            timeSpan += Time.deltaTime;  // 경과 시간을 계속 등록
+
+            if (!inCombat)
                 Move_NonCombat();
 
             if (inCombat)

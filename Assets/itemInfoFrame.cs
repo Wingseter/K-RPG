@@ -22,6 +22,7 @@ public class itemInfoFrame : MonoBehaviour
     public GameObject releaseBtn;
     public GameObject buyBtn;
     public GameObject sellBtn;
+    public GameObject loadBtn;
 
     private void OnEnable()
     {
@@ -30,21 +31,14 @@ public class itemInfoFrame : MonoBehaviour
         info_Item.text = item.info_Item;
         resalePrice.text = string.Format("Used Price : {0}", item.resalsePrice);
 
-        if(item.type == "Equipment")
+        if (item.type == "Equipment")
         {
-            hpBonus.text = string.Format("HP+{0}",item.hpBonus);
+            hpBonus.text = string.Format("HP+{0}", item.hpBonus);
             atkBonus.text = string.Format("Atk+{0}", item.atkBonus);
             defBonus.text = string.Format("Def +{0}", item.defBonus);
             criBonus.text = string.Format("Cri+{0}", item.criBonus);
             statBonus.SetActive(true);
 
-            if (!Manager.instance.manager_Inven.storeFrame.activeSelf)
-            {
-                if (!item.equipped)
-                    equipBtn.SetActive(true);
-                if (item.equipped)
-                    releaseBtn.SetActive(true);
-            }
             if (Manager.instance.manager_Inven.storeFrame.activeSelf)
             {
                 if (item.GetComponent<items_action>().inStore)
@@ -52,7 +46,31 @@ public class itemInfoFrame : MonoBehaviour
                 if (item.GetComponent<items_action>().inBag && !item.equipped)
                     sellBtn.SetActive(true);
             }
+            else if (Manager.instance.manager_Inven.reinforceFrame.activeSelf)
+            {
+                if (item.GetComponent<items_action>().inBag && !item.equipped)
+                    loadBtn.SetActive(true);
+            }
+            else
+            {
+                if (!item.equipped)
+                    equipBtn.SetActive(true);
+                if (item.equipped)
+                    releaseBtn.SetActive(true);
+            }
 
+        }
+        else if (item.type == "Use")
+        {
+
+        }
+        else if (item.type == "Stuff")
+        {
+            if (Manager.instance.manager_Inven.combineFrame.activeSelf)
+            {
+                if (item.GetComponent<items_action>().inBag && !item.equipped)
+                    loadBtn.SetActive(true);
+            }
         }
     }
 
@@ -62,5 +80,6 @@ public class itemInfoFrame : MonoBehaviour
         releaseBtn.SetActive(false);
         buyBtn.SetActive(false);
         sellBtn.SetActive(false);
+        loadBtn.SetActive(false);
     }
 }

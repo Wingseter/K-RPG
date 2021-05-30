@@ -52,7 +52,7 @@ public class Skill_Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        if(other.gameObject.tag == "Enemy" | other.gameObject.tag == "Dead")
+        if(other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss" | other.gameObject.tag == "Dead")
         {
             Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.hit_MagicArrow);
 
@@ -70,7 +70,7 @@ public class Skill_Arrow : MonoBehaviour
             dmgText.transform.position = Manager.instance.playerController.cam.WorldToScreenPoint(hitPoint + new Vector3(0, 1, 0));
             dmgText.SetActive(true);
 
-            if (other.gameObject.tag == "Enemy")
+            if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")
                 other.GetComponent<EnemyHit>().Hit(dmg);
         }
     }

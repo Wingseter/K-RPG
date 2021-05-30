@@ -12,6 +12,7 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
     [Header("Location")]
     public bool inBag;
     public bool inStore;
+    public bool inCashStore;
 
     float releaseTime;
     bool dragging;
@@ -33,6 +34,15 @@ public class items_action : MonoBehaviour, IPointerUpHandler,
             Manager.instance.manager_Inven.itemInfoFrame.GetComponent<itemInfoFrame>().item = GetComponent<Items_Info>();
             Manager.instance.manager_Inven.itemInfoFrame.SetActive(true);
 
+        }
+
+        if(inCashStore)
+        {
+            Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnB);
+            // 아이템 설명
+            Manager.instance.manager_Inven.itemInfoCashFrame.SetActive(false);
+            Manager.instance.manager_Inven.itemInfoCashFrame.GetComponent<ItemInfoForCash>().item = GetComponent<Items_Info>();
+            Manager.instance.manager_Inven.itemInfoCashFrame.SetActive(true);
         }
 
     }

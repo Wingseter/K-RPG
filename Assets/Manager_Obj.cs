@@ -7,6 +7,7 @@ public class Manager_Obj : MonoBehaviour
     [Header("Pool")]
     public Transform pool_SkillObj;
     public List<GameObject> list_Skill_Arrow = new List<GameObject>();
+    public List<GameObject> list_Skill_Nuke = new List<GameObject>();
 
     [Space(10)]
     public Transform pool_Effect;
@@ -18,8 +19,10 @@ public class Manager_Obj : MonoBehaviour
 
     [Header("Prefab")]
     public GameObject prefab_skill_SoulArrow;
+    public GameObject prefab_skill_Nuke;
     public GameObject prefab_hitEffect;
     public GameObject prefab_dmgText;
+
 
     GameObject AddObj(GameObject prefab, Transform pool, List<GameObject> list)
     {
@@ -35,6 +38,11 @@ public class Manager_Obj : MonoBehaviour
         {
             if (!list[i].activeSelf)
                 return list[i];
+        }
+        if(list == list_Skill_Nuke)
+        {
+            GameObject obj = AddObj(prefab_skill_Nuke, pool_SkillObj, list_Skill_Nuke);
+            return obj;
         }
 
         if(list == list_Skill_Arrow)

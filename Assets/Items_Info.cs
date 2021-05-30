@@ -5,12 +5,14 @@ using UnityEngine;
 public class Items_Info : MonoBehaviour
 {
     [Header("Common Info")]
+    public int itemId;
     public string type;
     public string name_Item;
     public string info_Item;
     public int price;
+    public int diaPrice;
     public int resalsePrice;
-    public int count;
+    public int reinforce;
 
     [Header("Equipment Info")]
     public int hpBonus;
@@ -19,6 +21,6 @@ public class Items_Info : MonoBehaviour
     public float criBonus;
 
     public bool equipped;
-    public Mesh mesh;
     public int equipNum;
+    public ItemUse effect;
 }
