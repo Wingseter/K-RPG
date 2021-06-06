@@ -12,12 +12,11 @@ public class VariousTranslateMove : MonoBehaviour {
     public float m_changedFactor;
     float m_Time;
 
-    void Start()
+    void OnEnable()
     {
         m_Time = Time.time;
     }
-
-	void Update () {
+    void Update () {
         m_changedFactor = VariousEffectsScene.m_gaph_scenesizefactor;
 
         if (m_fowardMove)

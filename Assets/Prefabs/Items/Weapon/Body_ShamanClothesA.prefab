@@ -89,20 +89,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca6cdcc388e6db429ea8ea9acdb27da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemId: 0
   type: Equipment
-  name_Item: Body_ShamanClothesA
+  name_Item: Cloath1
   info_Item: Hat made out of animal skulls
   price: 10
   diaPrice: 20
   resalsePrice: 5
-  count: 1
+  reinforce: 0
   hpBonus: 20
   atkBonus: 0
   defBonus: 5
   criBonus: 0
   equipped: 0
-  mesh: {fileID: 4300000, guid: 8c8e4e1802ffbd2439301d74750e3b67, type: 2}
   equipNum: 1
+  effect: {fileID: 0}
 --- !u!114 &5725327850321303120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +119,7 @@ MonoBehaviour:
   img: {fileID: 0}
   inBag: 0
   inStore: 0
+  inCashStore: 0
 --- !u!1 &5725327851529071592
 GameObject:
   m_ObjectHideFlags: 0

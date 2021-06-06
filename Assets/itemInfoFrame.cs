@@ -23,6 +23,7 @@ public class itemInfoFrame : MonoBehaviour
     public GameObject buyBtn;
     public GameObject sellBtn;
     public GameObject loadBtn;
+    public GameObject useBtn;
 
     private void OnEnable()
     {
@@ -51,6 +52,10 @@ public class itemInfoFrame : MonoBehaviour
                 if (item.GetComponent<items_action>().inBag && !item.equipped)
                     loadBtn.SetActive(true);
             }
+            else if (Manager.instance.manager_Inven.combineFrame.activeSelf)
+            {
+                // Please Do Notion
+            }
             else
             {
                 if (!item.equipped)
@@ -62,7 +67,8 @@ public class itemInfoFrame : MonoBehaviour
         }
         else if (item.type == "Use")
         {
-
+            if (item.GetComponent<items_action>().inBag && !item.equipped)
+                useBtn.SetActive(true);
         }
         else if (item.type == "Stuff")
         {
@@ -81,5 +87,6 @@ public class itemInfoFrame : MonoBehaviour
         buyBtn.SetActive(false);
         sellBtn.SetActive(false);
         loadBtn.SetActive(false);
+        useBtn.SetActive(false);
     }
 }

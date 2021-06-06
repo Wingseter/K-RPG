@@ -16,7 +16,7 @@ public class ShopFrame : MonoBehaviour
     public GameObject[] saleItems;
 
 
-    private void Start()
+    private void OnEnable()
 
     {
         OpenCashStore();
@@ -59,6 +59,10 @@ public class ShopFrame : MonoBehaviour
                 obj.transform.parent.gameObject.SetActive(true);
 
             }
+        }
+        if(Manager.instance.playerController.player.GetComponent<PlayerState>().lev > 3)
+        {
+            slot_cashItems[2].gameObject.SetActive(false);
         }
         gameObject.SetActive(true);
     }

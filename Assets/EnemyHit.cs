@@ -26,6 +26,7 @@ public class EnemyHit : MonoBehaviour
                 Manager.instance.playerController.target_Tool.SetActive(false);
             }
 
+            Manager.instance.playerController.target_Boss.SetActive(false);
             GetComponent<Animator>().Play("Die");
             gameObject.tag = "Dead";
 

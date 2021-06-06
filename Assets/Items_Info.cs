@@ -22,5 +22,4 @@ public class Items_Info : MonoBehaviour
 
     public bool equipped;
     public int equipNum;
-    public ItemUse effect;
 }

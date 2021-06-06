@@ -13,6 +13,7 @@ public class Manager_Shop : MonoBehaviour
     public Slider health;
     public Slider mana;
     public Slider exp;
+    public TextMeshProUGUI expBoost;
     public TextMeshProUGUI Lv;
 
     [Header("Bank")]
@@ -21,10 +22,24 @@ public class Manager_Shop : MonoBehaviour
 
     private void Start()
     {
-        UpdateAllStat();
-        UpdateBank();
+        StartCoroutine("update");
+    }
+    private void OnDestroy()
+    {
+        StopCoroutine("update");
     }
 
+    IEnumerator update()
+    {
+        while (true)
+        {
+            UpdateAllStat();
+            UpdateBank();
+            Lv.text = player.lev.ToString();
+            expBoost.text = string.Format("x {0}", player.exp_Multiply);
+            yield return null;
+        }
+    }
     public void UpdateHealth()
     {
         health.value = player.hp_Cur / player.hp;

@@ -16,5 +16,8 @@ public class Manager_SE : MonoBehaviour
     public AudioClip hit_MagicArrow;
     public AudioClip LevelUp;
     public AudioClip Gacha;
-
+    public AudioClip enemyAtk1;
+    public AudioClip enemyAtk2;
+    public AudioClip die;
+    public GameObject BGM;
 }

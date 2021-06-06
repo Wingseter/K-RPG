@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     [Header("Boss")]
     public GameObject target_Boss;
     public TextMeshProUGUI name_Boss;
-    public GameObject hpBar_Boss;
+    public Slider hpBar_Boss;
 
     [Header("Casting")]
     public bool onCasting;
@@ -112,12 +112,13 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void Casting(float time, string name, GameObject obj)
+    public void Casting(float time, string name, GameObject obj, float spentMana)
     {
         castingTime = time;
         skillName = name;
         atkTarget = target;
         skillObj = obj;
+        player.gameObject.GetComponent<PlayerState>().mana_Cur -= spentMana;
         StartCoroutine("OnCasting");
     }
 
@@ -157,6 +158,38 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    public void Die()
+    {
+        playerAni.Play("Die");
+        StartCoroutine("Respawn");
+    }
+    IEnumerator Respawn()
+    {
+        Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.die);
+
+        float time = 0;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+
+            if (time >= 3)
+            {
+                RespawnAct();
+                StopCoroutine("Respawn");
+
+            }
+            yield return null;
+        }
+    }
+    public void RespawnAct()
+    {
+        player.position = new Vector3(2, 0, 0);
+        player.rotation = Quaternion.Euler(0, 180, 0);
+        player.gameObject.GetComponent<PlayerState>().mana_Cur = player.gameObject.GetComponent<PlayerState>().mana;
+        player.gameObject.GetComponent<PlayerState>().hp_Cur = player.gameObject.GetComponent<PlayerState>().hp;
+    }
+
     void Targeting()
     {
         target = hit.transform;
@@ -170,7 +203,6 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
     {
         target = hit.transform;
         name_Boss.text = target.GetComponent<Obj_Info>().obj_Name;
-        hpBar_Boss.SetActive(target.GetComponent<Obj_Info>().type == "Boss");
         target_Boss.SetActive(true);
 
     }
@@ -209,7 +241,7 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler
         if (target != null && target.gameObject.tag == "Boss")
         {
             EnemyState enemyState = target.GetComponent<EnemyState>();
-            hpBar_Boss.transform.GetComponent<Image>().fillAmount = enemyState.curHp / enemyState.hp;
+            hpBar_Boss.value = enemyState.curHp / enemyState.hp;
         }
 
 

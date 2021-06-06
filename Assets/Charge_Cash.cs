@@ -12,15 +12,14 @@ public class Charge_Cash : MonoBehaviour
 
     public void chargeDia(int addDia)
     {
-        Manager.instance.manager_Popup.OpenPopup("hello", string.Format("Are you sure you want to charge {0} with {1}$", addDia, addDia/100));
+        Manager.instance.manager_Popup.OpenPopup("hello", string.Format("Are you sure you want to charge {0}Dia with {1}$", addDia, addDia/100));
         Manager.instance.manager_Popup.SetYesCallback(() =>
         {
             Manager.instance.manager_Inven.dia += addDia;
-            Manager.instance.manager_Shop.UpdateDia();
             Manager.instance.manager_Popup.closePopup();
             player.spantDia += addDia;
 
-            if(player.spantDia > (player.DiaLevel + 1) * 10000)
+            if(player.spantDia >= (player.DiaLevel + 1) * 1000)
             {
                 player.spantDia = 0;
                 player.DiaLevel += 1;
@@ -29,6 +28,7 @@ public class Charge_Cash : MonoBehaviour
             vipFrame.SetActive(true);
         });
         Manager.instance.manager_Popup.SetNoCallback(() => {
+
             Manager.instance.manager_Popup.closePopup();
         });
     }
@@ -45,7 +45,7 @@ public class Charge_Cash : MonoBehaviour
         }
         else
         {
-            Manager.instance.manager_Popup.OpenPopup("hello", "world");
+            Manager.instance.manager_Popup.OpenPopup("Charge gold", string.Format("Are you sure you want to charge {0}Gold with {1}Dia", addGold, addGold/ 100));
             Manager.instance.manager_Popup.SetYesCallback(() =>
             {
                 Manager.instance.manager_Inven.dia -= usedDia;
@@ -56,7 +56,6 @@ public class Charge_Cash : MonoBehaviour
                 Manager.instance.manager_Popup.closePopup();
             });
         }
-        Manager.instance.manager_Shop.UpdateBank();
 
     }
 }

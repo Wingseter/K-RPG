@@ -7,7 +7,6 @@ public class Equip : MonoBehaviour
     [Header("Player")]
     public PlayerState player;
     public GameObject CharInfoFrame;
-    //public SkinnedMeshRenderer[] parts_Player;
 
     [Header("Character Info")]
     public Transform[] slot_Equip;

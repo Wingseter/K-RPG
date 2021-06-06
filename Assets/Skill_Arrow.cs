@@ -16,6 +16,14 @@ public class Skill_Arrow : MonoBehaviour
     private void OnEnable()
     {
         target = Manager.instance.playerController.atkTarget;
+        if(target == null)
+        {
+            Manager.instance.manager_Popup.notice.text = "Select the Target First";
+            Manager.instance.manager_Popup.notice.gameObject.SetActive(true);
+            gameObject.SetActive(false);
+
+            return;
+        }
         StartCoroutine("Arrow");
         Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.flying_MagicArrow);
     }

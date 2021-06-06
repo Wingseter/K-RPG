@@ -23,10 +23,10 @@ public class Manager_Popup : MonoBehaviour
         PopupFrame.SetActive(true);
     }
     public void SetYesCallback(YesnoCallBack listener) { 
-        yesCallBack += listener; 
+        yesCallBack = listener; 
     }
     public void SetNoCallback(YesnoCallBack listener) {
-        noCallBack += listener; 
+        noCallBack = listener; 
     }
     public void OnYes() { 
         yesCallBack?.Invoke(); 

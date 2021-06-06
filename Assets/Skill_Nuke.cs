@@ -16,9 +16,26 @@ public class Skill_Nuke : MonoBehaviour
     private void OnEnable()
     {
         target = Manager.instance.playerController.atkTarget;
+        if (target == null)
+        {
+            Manager.instance.manager_Popup.notice.text = "Select the Target First";
+            Manager.instance.manager_Popup.notice.gameObject.SetActive(true);
+            gameObject.SetActive(false);
+
+            return;
+        }
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
         StartCoroutine("trace");
         Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.flying_MagicArrow); 
 
+    }
+
+    private void OnDisable()
+    {
+        time = 0;
+        
     }
     void boom()
     {

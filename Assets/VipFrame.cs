@@ -14,7 +14,7 @@ public class VipFrame : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        vipSlider.value = player.spantDia / ((player.DiaLevel + 1) * 10000);
+        vipSlider.value = player.spantDia / ((player.DiaLevel + 1) * 1000);
         level.text = string.Format("VIP {0}LV", player.DiaLevel);
     }
 

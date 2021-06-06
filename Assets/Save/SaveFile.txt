@@ -1,1 +1,0 @@
-{"playerPos":{"x":12.556766510009766,"y":2.563915967941284,"z":3.450594902038574},"playerRot":{"x":0.0,"y":71.82606506347656,"z":0.0},"invenItemName":["Head_HeadBand","Body_ShamansArmor","Body_ShamanClothesA"],"buffName":[]}

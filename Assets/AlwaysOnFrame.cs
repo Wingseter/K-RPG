@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AlwaysOnFrame : MonoBehaviour
 {
-
     public void openEquip()
     {
         Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.btnA);

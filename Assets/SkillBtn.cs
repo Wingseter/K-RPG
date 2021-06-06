@@ -13,6 +13,7 @@ public class SkillBtn : MonoBehaviour
     bool cool;
     public float castingTime;
     GameObject skillObj;
+    public float spentMana;
 
     public void OnClickBtn()
     {
@@ -30,7 +31,7 @@ public class SkillBtn : MonoBehaviour
                     skillObj = Manager.instance.manager_Obj.GetObj(Manager.instance.manager_Obj.list_Skill_Nuke);
                     break;
             }
-            Manager.instance.playerController.Casting(castingTime, skillName, skillObj);
+            Manager.instance.playerController.Casting(castingTime, skillName, skillObj, spentMana);
         }
     }
 

@@ -41,6 +41,14 @@ public class PlayerState : MonoBehaviour
     {
         Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.LevelUp);
         lev = lev + 1;
+        hp += 100;
+        atk += 10;
+        def += 10;
+        cri += 3;
+        mana += 100;
+        hp_Cur = hp;
+        mana_Cur = mana;
+
         exp_Max = exp_Max + 100;
         exp_Cur = 0;
         Level.text = lev.ToString();

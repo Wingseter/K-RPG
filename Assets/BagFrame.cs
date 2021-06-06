@@ -5,7 +5,7 @@ using UnityEngine;
 public class BagFrame : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         for(int i = 0; i < Manager.instance.manager_Inven.slot_BagFrame.Length; i++)
         {

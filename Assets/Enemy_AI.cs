@@ -10,10 +10,12 @@ public class Enemy_AI : MonoBehaviour
 
     public int moveRange;
     public int trackingRange;
+    public int AtkSpeed;
 
     public bool inCombat;
     public bool isThisBoss;
     bool inAtk;
+    public PlayerState player;
 
     public float timeSpan;  //경과 시간을 갖는 변수
     public float checkTime;  // 특정 시간을 갖는 변수
@@ -61,8 +63,7 @@ public class Enemy_AI : MonoBehaviour
 
             if(targetDis <= 3)
             {
-                inAtk = true;
-                enemyAni.Play("Enemy_Idle");
+                Enemy_Atk();
             }
         }
 
@@ -80,7 +81,8 @@ public class Enemy_AI : MonoBehaviour
 
     void Move_NonCombat()
     {
-    
+        enemyAni.Play("Enemy_Move");
+
         if (targetDis <= 3 || timeSpan > checkTime)  // 경과 시간이 특정 시간이 보다 커졋을 경우
         {
             onMove = false;
@@ -108,12 +110,22 @@ public class Enemy_AI : MonoBehaviour
 
     public void Enemy_Atk()
     {
-        if(targetDis <= 3)
+        if(targetDis <= 3 && timeSpan > AtkSpeed)
         {
             transform.LookAt(target);
             enemyAni.Play("Enemy_Atk");
+            player.hp_Cur -= GetComponent<EnemyState>().Atk;
+            if(player.hp_Cur < 0)
+            {
+                Manager.instance.playerController.Die();
+            }
+            if (isThisBoss == true)
+                Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.enemyAtk2);
+            else
+                Manager.instance.manager_SE.seAudios.PlayOneShot(Manager.instance.manager_SE.enemyAtk1);
+            timeSpan = 0;
         }
-        if(targetDis > 3)
+        if(targetDis > 3 )
         {
             inAtk = false;
             enemyAni.Play("Enemy_Move");

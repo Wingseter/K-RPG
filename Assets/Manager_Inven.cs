@@ -43,6 +43,30 @@ public class Manager_Inven : MonoBehaviour
         bagFrame.SetActive(true);
     }
 
+    public void UseItem()
+    {
+        string name = selectedItem.GetComponent<Items_Info>().name_Item;
+        switch (name)
+        {
+            case "ExpBooster":
+                Manager.instance.playerController.player.GetComponent<PlayerState>().exp_Multiply = 2.0f;
+                break;
+            case "InvenExpender":
+                Manager.instance.manager_Inven.invenSize += 6;
+                Manager.instance.manager_Inven.bagFrame.SetActive(false);
+                Manager.instance.manager_Inven.bagFrame.SetActive(true);
+                break;
+            case "BeginnerSet":
+                gold += 100000;
+                break;
+            case "":
+                break;
+        }
+        Manager.instance.manager_Inven.itemInfoFrame.SetActive(false);
+
+        Destroy(selectedItem.gameObject);
+    }
+
     public Transform Slot()
     {
 
