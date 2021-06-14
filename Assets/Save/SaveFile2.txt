@@ -1,1 +1,0 @@
-{"firstTime":true,"playerPos":{"x":0.0,"y":0.0,"z":0.0},"playerRot":{"x":0.0,"y":0.0,"z":0.0},"lev":0,"hp":0.0,"hp_Cur":0.0,"atk":0,"def":0,"cri":0.0,"exp_Max":0.0,"exp_Cur":0.0,"exp_Multiply":0.0,"mana":0.0,"mana_Cur":0.0,"spantDia":0.0,"DiaLevel":0.0,"invenSize":0,"Dia":0,"Gold":0,"equipItemNum":[],"invenItemPlace":[],"invenItemName":[],"buffName":[]}
